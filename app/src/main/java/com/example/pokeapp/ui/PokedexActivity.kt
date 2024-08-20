@@ -12,6 +12,7 @@ import com.example.pokeapp.data.AllPokemonModel
 import com.example.pokeapp.data.api.ApiClient
 import com.example.pokeapp.data.PokeModel
 import com.example.pokeapp.R
+import com.example.pokeapp.data.GenerationModel
 import com.example.pokeapp.ui.PokeDetailActivity.Companion.POKEMON_NAME
 import com.example.pokeapp.databinding.ActivityPokedexBinding
 import com.example.pokeapp.ui.pokeAdapter.PokemonAdapter
@@ -29,6 +30,9 @@ class PokedexActivity : AppCompatActivity() {
     private lateinit var adapter: PokemonAdapter
     private var pokemonList: MutableList<PokeModel> = emptyList<PokeModel>().toMutableList()
 
+    companion object{
+        const val GENERATION = "generation"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,9 +40,10 @@ class PokedexActivity : AppCompatActivity() {
         binding = ActivityPokedexBinding.inflate(layoutInflater)
         setContentView(binding.root)
         retrofit = getRetrofit()
-
+        goBack()
         initUI()
-        getAllPokemonBasicInfo()
+        val generation: String = intent.getStringExtra(GENERATION).orEmpty()
+        getAllPokemonBasicInfo(generation)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -60,27 +65,190 @@ class PokedexActivity : AppCompatActivity() {
             .build()
     }
 
-    private fun getAllPokemonBasicInfo() {
+    private fun getAllPokemonBasicInfo(generation: String) {
         binding.progressBar.isVisible = true
-        CoroutineScope(Dispatchers.IO).launch {
-            val call: Response<AllPokemonModel> =
-                retrofit.create(ApiClient::class.java).getAllPokemon()
-            if (call.isSuccessful) {
-                val response: AllPokemonModel? = call.body()
-                if (response != null) {
-                    for (i in response.results.indices) {
-                        val call2: Response<PokeModel> = retrofit.create(ApiClient::class.java)
-                            .getAllPokemonBasicInfo(response.results[i].name)
-                        pokemonList.add(call2.body()!!)
-                    }
-                    runOnUiThread {
-                        binding.progressBar.isVisible = false
-                        adapter.updateList(pokemonList)
 
-                        //Log.i("Pokemon", response2.toString())
+        when (generation){
+            "GenerationI" -> { CoroutineScope(Dispatchers.IO).launch {
+                val call: Response<AllPokemonModel> =
+                    retrofit.create(ApiClient::class.java).getAllGen1Pokemon()
+                if (call.isSuccessful) {
+                    val response: AllPokemonModel? = call.body()
+                    if (response != null) {
+                        for (i in response.results.indices) {
+                            val call2: Response<PokeModel> = retrofit.create(ApiClient::class.java)
+                                .getAllPokemonBasicInfo(response.results[i].name)
+                            pokemonList.add(call2.body()!!)
+                        }
+                        runOnUiThread {
+                            binding.progressBar.isVisible = false
+                            adapter.updateList(pokemonList)
+
+                            //Log.i("Pokemon", response2.toString())
+                        }
                     }
                 }
-            }
+            } }
+            "GenerationII" -> { CoroutineScope(Dispatchers.IO).launch {
+                val call: Response<AllPokemonModel> =
+                    retrofit.create(ApiClient::class.java).getAllGen2Pokemon()
+                if (call.isSuccessful) {
+                    val response: AllPokemonModel? = call.body()
+                    if (response != null) {
+                        for (i in response.results.indices) {
+                            val call2: Response<PokeModel> = retrofit.create(ApiClient::class.java)
+                                .getAllPokemonBasicInfo(response.results[i].name)
+                            pokemonList.add(call2.body()!!)
+                        }
+                        runOnUiThread {
+                            binding.progressBar.isVisible = false
+                            adapter.updateList(pokemonList)
+
+                            //Log.i("Pokemon", response2.toString())
+                        }
+                    }
+                }
+            } }
+            "GenerationIII" -> { CoroutineScope(Dispatchers.IO).launch {
+                val call: Response<AllPokemonModel> =
+                    retrofit.create(ApiClient::class.java).getAllGen3Pokemon()
+                if (call.isSuccessful) {
+                    val response: AllPokemonModel? = call.body()
+                    if (response != null) {
+                        for (i in response.results.indices) {
+                            val call2: Response<PokeModel> = retrofit.create(ApiClient::class.java)
+                                .getAllPokemonBasicInfo(response.results[i].name)
+                            pokemonList.add(call2.body()!!)
+                        }
+                        runOnUiThread {
+                            binding.progressBar.isVisible = false
+                            adapter.updateList(pokemonList)
+
+                            //Log.i("Pokemon", response2.toString())
+                        }
+                    }
+                }
+            } }
+            "GenerationIV" -> {CoroutineScope(Dispatchers.IO).launch {
+                val call: Response<AllPokemonModel> =
+                    retrofit.create(ApiClient::class.java).getAllGen4Pokemon()
+                if (call.isSuccessful) {
+                    val response: AllPokemonModel? = call.body()
+                    if (response != null) {
+                        for (i in response.results.indices) {
+                            val call2: Response<PokeModel> = retrofit.create(ApiClient::class.java)
+                                .getAllPokemonBasicInfo(response.results[i].name)
+                            pokemonList.add(call2.body()!!)
+                        }
+                        runOnUiThread {
+                            binding.progressBar.isVisible = false
+                            adapter.updateList(pokemonList)
+
+                            //Log.i("Pokemon", response2.toString())
+                        }
+                    }
+                }
+            }}
+            "GenerationV" -> {CoroutineScope(Dispatchers.IO).launch {
+                val call: Response<AllPokemonModel> =
+                    retrofit.create(ApiClient::class.java).getAllGen5Pokemon()
+                if (call.isSuccessful) {
+                    val response: AllPokemonModel? = call.body()
+                    if (response != null) {
+                        for (i in response.results.indices) {
+                            val call2: Response<PokeModel> = retrofit.create(ApiClient::class.java)
+                                .getAllPokemonBasicInfo(response.results[i].name)
+                            pokemonList.add(call2.body()!!)
+                        }
+                        runOnUiThread {
+                            binding.progressBar.isVisible = false
+                            adapter.updateList(pokemonList)
+
+                            //Log.i("Pokemon", response2.toString())
+                        }
+                    }
+                }
+            }}
+            "GenerationVI" -> {CoroutineScope(Dispatchers.IO).launch {
+                val call: Response<AllPokemonModel> =
+                    retrofit.create(ApiClient::class.java).getAllGen6Pokemon()
+                if (call.isSuccessful) {
+                    val response: AllPokemonModel? = call.body()
+                    if (response != null) {
+                        for (i in response.results.indices) {
+                            val call2: Response<PokeModel> = retrofit.create(ApiClient::class.java)
+                                .getAllPokemonBasicInfo(response.results[i].name)
+                            pokemonList.add(call2.body()!!)
+                        }
+                        runOnUiThread {
+                            binding.progressBar.isVisible = false
+                            adapter.updateList(pokemonList)
+
+                            //Log.i("Pokemon", response2.toString())
+                        }
+                    }
+                }
+            }}
+            "GenerationVII" -> {CoroutineScope(Dispatchers.IO).launch {
+                val call: Response<AllPokemonModel> =
+                    retrofit.create(ApiClient::class.java).getAllGen7Pokemon()
+                if (call.isSuccessful) {
+                    val response: AllPokemonModel? = call.body()
+                    if (response != null) {
+                        for (i in response.results.indices) {
+                            val call2: Response<PokeModel> = retrofit.create(ApiClient::class.java)
+                                .getAllPokemonBasicInfo(response.results[i].name)
+                            pokemonList.add(call2.body()!!)
+                        }
+                        runOnUiThread {
+                            binding.progressBar.isVisible = false
+                            adapter.updateList(pokemonList)
+
+                            //Log.i("Pokemon", response2.toString())
+                        }
+                    }
+                }
+            }}
+            "GenerationVIII" -> {CoroutineScope(Dispatchers.IO).launch {
+                val call: Response<AllPokemonModel> =
+                    retrofit.create(ApiClient::class.java).getAllGen8Pokemon()
+                if (call.isSuccessful) {
+                    val response: AllPokemonModel? = call.body()
+                    if (response != null) {
+                        for (i in response.results.indices) {
+                            val call2: Response<PokeModel> = retrofit.create(ApiClient::class.java)
+                                .getAllPokemonBasicInfo(response.results[i].name)
+                            pokemonList.add(call2.body()!!)
+                        }
+                        runOnUiThread {
+                            binding.progressBar.isVisible = false
+                            adapter.updateList(pokemonList)
+
+                            //Log.i("Pokemon", response2.toString())
+                        }
+                    }
+                }
+            }}
+            "GenerationIX" -> {CoroutineScope(Dispatchers.IO).launch {
+                val call: Response<AllPokemonModel> =
+                    retrofit.create(ApiClient::class.java).getAllGen9Pokemon()
+                if (call.isSuccessful) {
+                    val response: AllPokemonModel? = call.body()
+                    if (response != null) {
+                        for (i in response.results.indices) {
+                            val call2: Response<PokeModel> = retrofit.create(ApiClient::class.java)
+                                .getAllPokemonBasicInfo(response.results[i].name)
+                            pokemonList.add(call2.body()!!)
+                        }
+                        runOnUiThread {
+                            binding.progressBar.isVisible = false
+                            adapter.updateList(pokemonList)
+
+                            //Log.i("Pokemon", response2.toString())
+                        }
+                    }
+                }
+            }}
         }
     }
 
@@ -88,6 +256,12 @@ class PokedexActivity : AppCompatActivity() {
         val intent = Intent(this, PokeDetailActivity::class.java)
         intent.putExtra(POKEMON_NAME, name)
         startActivity(intent)
+    }
+
+    private fun goBack(){
+        binding.backBtn.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 
 
