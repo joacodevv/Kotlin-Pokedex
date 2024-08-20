@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">PokeAPP</string>
+    <string name="pokedex">Pokedex</string>
+    <string name="pokemon_image">pokemon-image</string>
+    <string name="types">types</string>
+    <string name="stats">stats</string>
+    <string name="hp">hp</string>
+    <string name="atk">Atk</string>
+    <string name="dfc">Dfc</string>
+    <string name="sp_atk">sp atk</string>
+    <string name="sp_dfc">sp dfc</string>
+    <string name="spd">spd</string>
+    <string name="def">def</string>
+    <string name="sp_def">sp def</string>
+</resources>
